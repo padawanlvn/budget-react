@@ -1,24 +1,16 @@
 //import { getByTestId } from "@testing-library/react";
 //import { getNextKeyDef } from "@testing-library/user-event/dist/keyboard/getNextKeyDef";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Bills from "./bills";
 import EndingAmount from "./endingAmount";
+import { Context } from "./billsData";
 
 function BillPage() {
-  const [bills, setBills] = useState([]);
+  const { billsv, keyv } = useContext(Context);
+  const [bills, setBills] = billsv;
+  const [key, setKey] = keyv;
   const [startingAmount, setStartingAmount] = useState(0);
   const [totalDeductions, setTotalDeductions] = useState(0);
-  const [key, setKey] = useState(0);
-
-  /* Add up all the Bill amounts as the Total deductions 
-     whenever the Bills are updated*/
-  useEffect(() => {
-    if (bills.length > 0) {
-      setTotalDeductions(
-        bills.map((i) => i.amount).reduce((prev, next) => prev + next)
-      );
-    }
-  }, [bills]);
 
   /* I need to add a unique key for the Bills array for React
    */
@@ -39,12 +31,8 @@ function BillPage() {
     setStartingAmount(parseFloat(amount));
   };
 
-  const handleBillChange = (newBills) => {
-    if (newBills.length == 0) {
-      setBills([{ id: getKey(), label: "", amount: 0 }]);
-    } else {
-      setBills([...newBills]); // can't just pass in, need to set to a whole new array
-    }
+  const handleTotalDeductionsChange = (amount) => {
+    setTotalDeductions(parseFloat(amount));
   };
 
   return (
@@ -61,7 +49,7 @@ function BillPage() {
         </button>
       </div>
 
-      <Bills data={bills} onBillChange={handleBillChange}></Bills>
+      <Bills onTotalDeductionsChange={handleTotalDeductionsChange}></Bills>
 
       <EndingAmount
         start={startingAmount}

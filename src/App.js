@@ -3,15 +3,16 @@ import "./App.css";
 import React from "react";
 import NavBar from "./components/navbar";
 import BillPage from "./components/billPage";
+import BillsData from "./components/billsData";
 
 function App() {
   return (
-    <React.Fragment>
+    <BillsData>
       <NavBar></NavBar>
       <main className="container">
         <BillPage />
       </main>
-    </React.Fragment>
+    </BillsData>
   );
 }
 
