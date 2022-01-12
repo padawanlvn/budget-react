@@ -11,6 +11,8 @@ function BillPage() {
   const [key, setKey] = keyv;
   const [startingAmount, setStartingAmount] = useState(0);
   const [totalDeductions, setTotalDeductions] = useState(0);
+  const red = "#db7093";
+  const green = "#adff2f";
 
   /* I need to add a unique key for the Bills array for React
    */
@@ -28,6 +30,7 @@ function BillPage() {
   };
 
   const handleStartingAmountChange = (amount) => {
+    amount = amount || 0;
     setStartingAmount(parseFloat(amount));
   };
 
@@ -42,7 +45,9 @@ function BillPage() {
         <input
           defaultValue={setStartingAmount}
           type="number"
+          placeholder="Starting balance..."
           onChange={(e) => handleStartingAmountChange(e.target.value)}
+          style={{ backgroundColor: startingAmount > 0 ? green : red }}
         ></input>
         <button onClick={handleClickNewBill}>
           Click to add something to pay

@@ -6,6 +6,9 @@ const Bills = (props) => {
   const [bills, setBills] = billsv;
   const [key, setKey] = keyv;
 
+  const red = "#db7093";
+  const green = "#adff2f";
+
   /* Add up all the Bill amounts as the Total deductions 
      whenever the Bills are updated*/
   useEffect(() => {
@@ -25,6 +28,7 @@ const Bills = (props) => {
   };
 
   const handleNewAmount = (bill, amount) => {
+    amount = amount || 0;
     bill.amount = parseFloat(amount);
     setBills([...bills]);
   };
@@ -54,6 +58,7 @@ const Bills = (props) => {
         type="number"
         placeholder="$0.00"
         onChange={(e) => handleNewAmount(bill, e.target.value)}
+        style={{ backgroundColor: bill.amount > 0 ? green : red }}
       ></input>
       <button onClick={(e) => handleRemoveBill(bill)}>-</button>
     </div>
