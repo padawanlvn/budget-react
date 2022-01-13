@@ -12,12 +12,12 @@ function NavBar(props) {
   }, []);
 
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar navbar-light bg-info bg-gradient">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          My Budget{" "}
+          My Budget
         </a>
-        <h6>Random joke: {quote}</h6>
+        <a>Random joke: {quote}</a>
       </div>
     </nav>
   );

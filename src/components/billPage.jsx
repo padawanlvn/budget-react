@@ -39,10 +39,11 @@ function BillPage() {
   };
 
   return (
-    <div>
+    <div className="d-grid gap-1">
       <div>
-        I gots PAID YO!
+        I gots PAID YO! $
         <input
+          className="mx-3"
           defaultValue={setStartingAmount}
           type="number"
           placeholder="Starting balance..."

@@ -54,9 +54,10 @@ const Bills = (props) => {
         placeholder="Whatcha payin?"
         onChange={(e) => handleNewLabel(bill, e.target.value)}
       ></input>
+      :$
       <input
         type="number"
-        placeholder="$0.00"
+        placeholder="0.00"
         onChange={(e) => handleNewAmount(bill, e.target.value)}
         style={{ backgroundColor: bill.amount > 0 ? green : red }}
       ></input>
