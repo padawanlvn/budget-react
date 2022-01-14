@@ -56,28 +56,28 @@ function BillPage() {
           onChange={(e) => handleStartingAmountChange(e.target.value)}
           style={{ backgroundColor: startingAmount > 0 ? green : red }}
         ></input>
-        <button onClick={handleClickNewBill}>
-          Click to add something to pay
-        </button>
-        <button onClick={handleClickNewIncome}>
-          Click to add something coming in
-        </button>
       </div>
 
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <Bills
-              onTotalDeductionsChange={handleTotalDeductionsChange}
-            ></Bills>
+      <div className="row">
+        <div className="col">
+          <div className="pb-1">
+            <button onClick={handleClickNewBill}>
+              Click to add something to pay
+            </button>
           </div>
-          <div className="col">
-            <Incomes
-              onTotalDeductionsChange={handleTotalIncomesChange}
-            ></Incomes>
+          <Bills onTotalDeductionsChange={handleTotalDeductionsChange}></Bills>
+        </div>
+
+        <div className="col">
+          <div className="pb-1">
+            <button className="pb-1" onClick={handleClickNewIncome}>
+              Click to add mula coming IN
+            </button>
           </div>
+          <Incomes onTotalDeductionsChange={handleTotalIncomesChange}></Incomes>
         </div>
       </div>
+
       <EndingAmount
         start={startingAmount}
         deductions={totalDeductions}

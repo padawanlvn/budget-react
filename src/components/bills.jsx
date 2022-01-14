@@ -41,7 +41,7 @@ const Bills = (props) => {
   };
 
   return bills.map((bill) => (
-    <div key={bill.id}>
+    <div className="pb-1" key={bill.id}>
       <input
         placeholder="Whatcha payin?"
         onChange={(e) => handleNewLabel(bill, e.target.value)}
