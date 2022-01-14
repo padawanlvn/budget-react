@@ -13,9 +13,11 @@ const Incomes = (props) => {
      whenever the Incomes are updated*/
   useEffect(() => {
     if (incomes.length > 0) {
-      props.onTotalDeductionsChange(
+      props.onTotalIncomesChange(
         incomes.map((i) => i.amount).reduce((prev, next) => prev + next)
       );
+    } else {
+      props.onTotalIncomesChange(0);
     }
   }, [incomes]);
 
@@ -34,13 +36,13 @@ const Incomes = (props) => {
     const newIncomes = incomes.filter((t) => t !== income);
 
     if (newIncomes.length == 0) {
-      setIncomes([{ id: key.current++, label: "", amount: 0 }]);
+      setIncomes([]);
     } else {
       setIncomes([...newIncomes]); // can't just pass in, need to set to a whole new array
     }
   };
 
-  return incomes.map((income) => (
+  return incomes?.map((income) => (
     <div className="pb-1" key={income.id}>
       <input
         placeholder="What's coming in?"

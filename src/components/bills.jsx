@@ -16,6 +16,8 @@ const Bills = (props) => {
       props.onTotalDeductionsChange(
         bills.map((i) => i.amount).reduce((prev, next) => prev + next)
       );
+    } else {
+      props.onTotalDeductionsChange(0);
     }
   }, [bills]);
 
@@ -34,13 +36,13 @@ const Bills = (props) => {
     const newBills = bills.filter((t) => t !== bill);
 
     if (newBills.length == 0) {
-      setBills([{ id: key.current++, label: "", amount: 0 }]);
+      setBills([]);
     } else {
       setBills([...newBills]); // can't just pass in, need to set to a whole new array
     }
   };
 
-  return bills.map((bill) => (
+  return bills?.map((bill) => (
     <div className="pb-1" key={bill.id}>
       <input
         placeholder="Whatcha payin?"

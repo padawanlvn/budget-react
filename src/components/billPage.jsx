@@ -70,11 +70,11 @@ function BillPage() {
 
         <div className="col">
           <div className="pb-1">
-            <button className="pb-1" onClick={handleClickNewIncome}>
+            <button onClick={handleClickNewIncome}>
               Click to add mula coming IN
             </button>
           </div>
-          <Incomes onTotalDeductionsChange={handleTotalIncomesChange}></Incomes>
+          <Incomes onTotalIncomesChange={handleTotalIncomesChange}></Incomes>
         </div>
       </div>
 
