@@ -4,7 +4,7 @@ import { Context } from "./billsData";
 const Bills = (props) => {
   const { billsv, keyv } = useContext(Context);
   const [bills, setBills] = billsv;
-  const [key, setKey] = keyv;
+  const [key] = keyv;
 
   const red = "#db7093";
   const green = "#adff2f";
@@ -18,14 +18,6 @@ const Bills = (props) => {
       );
     }
   }, [bills]);
-
-  /* I need to add a unique key for the Bills array for React
-   */
-  const getKey = () => {
-    const retVal = key + 1;
-    setKey(retVal);
-    return retVal;
-  };
 
   const handleNewAmount = (bill, amount) => {
     amount = amount || 0;
@@ -42,7 +34,7 @@ const Bills = (props) => {
     const newBills = bills.filter((t) => t !== bill);
 
     if (newBills.length == 0) {
-      setBills([{ id: getKey(), label: "", amount: 0 }]);
+      setBills([{ id: key.current++, label: "", amount: 0 }]);
     } else {
       setBills([...newBills]); // can't just pass in, need to set to a whole new array
     }

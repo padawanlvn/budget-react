@@ -1,6 +1,6 @@
 //import { getByTestId } from "@testing-library/react";
 //import { getNextKeyDef } from "@testing-library/user-event/dist/keyboard/getNextKeyDef";
-import React, { useState, useContext } from "react";
+import React, { useRef, useState, useContext } from "react";
 import Bills from "./bills";
 import EndingAmount from "./endingAmount";
 import { Context } from "./billsData";
@@ -8,24 +8,16 @@ import { Context } from "./billsData";
 function BillPage() {
   const { billsv, keyv } = useContext(Context);
   const [bills, setBills] = billsv;
-  const [key, setKey] = keyv;
+  const [key] = keyv;
   const [startingAmount, setStartingAmount] = useState(0);
   const [totalDeductions, setTotalDeductions] = useState(0);
   const red = "#db7093";
   const green = "#adff2f";
 
-  /* I need to add a unique key for the Bills array for React
-   */
-  const getKey = () => {
-    const retVal = key + 1;
-    setKey(retVal);
-    return retVal;
-  };
-
   const handleClickNewBill = () => {
     setBills((oldBills) => [
       ...oldBills,
-      { id: getKey(), label: "", amount: 0 },
+      { id: key.current++, label: "", amount: 0 },
     ]);
   };
 
