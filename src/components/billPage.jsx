@@ -2,21 +2,31 @@
 //import { getNextKeyDef } from "@testing-library/user-event/dist/keyboard/getNextKeyDef";
 import React, { useRef, useState, useContext } from "react";
 import Bills from "./bills";
+import Incomes from "./income";
 import EndingAmount from "./endingAmount";
 import { Context } from "./billsData";
 
 function BillPage() {
-  const { billsv, keyv } = useContext(Context);
+  const { billsv, incomesv, keyv } = useContext(Context);
   const [bills, setBills] = billsv;
+  const [incomes, setIncomes] = incomesv;
   const [key] = keyv;
   const [startingAmount, setStartingAmount] = useState(0);
   const [totalDeductions, setTotalDeductions] = useState(0);
+  const [totalIncomes, setTotalIncomes] = useState(0);
   const red = "#db7093";
   const green = "#adff2f";
 
   const handleClickNewBill = () => {
     setBills((oldBills) => [
       ...oldBills,
+      { id: key.current++, label: "", amount: 0 },
+    ]);
+  };
+
+  const handleClickNewIncome = () => {
+    setIncomes((oldIncomes) => [
+      ...oldIncomes,
       { id: key.current++, label: "", amount: 0 },
     ]);
   };
@@ -28,6 +38,10 @@ function BillPage() {
 
   const handleTotalDeductionsChange = (amount) => {
     setTotalDeductions(parseFloat(amount));
+  };
+
+  const handleTotalIncomesChange = (amount) => {
+    setTotalIncomes(parseFloat(amount));
   };
 
   return (
@@ -45,13 +59,29 @@ function BillPage() {
         <button onClick={handleClickNewBill}>
           Click to add something to pay
         </button>
+        <button onClick={handleClickNewIncome}>
+          Click to add something coming in
+        </button>
       </div>
 
-      <Bills onTotalDeductionsChange={handleTotalDeductionsChange}></Bills>
-
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <Bills
+              onTotalDeductionsChange={handleTotalDeductionsChange}
+            ></Bills>
+          </div>
+          <div className="col">
+            <Incomes
+              onTotalDeductionsChange={handleTotalIncomesChange}
+            ></Incomes>
+          </div>
+        </div>
+      </div>
       <EndingAmount
         start={startingAmount}
         deductions={totalDeductions}
+        incomes={totalIncomes}
       ></EndingAmount>
     </div>
   );

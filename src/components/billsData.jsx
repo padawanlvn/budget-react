@@ -4,13 +4,14 @@ export const Context = React.createContext();
 
 const BillsData = ({ children }) => {
   const [bills, setBills] = useState([]);
-  //  const [key, setKey] = useState(0);
+  const [incomes, setIncomes] = useState([]);
   const key = useRef(0);
 
   return (
     <Context.Provider
       value={{
         billsv: [bills, setBills],
+        incomesv: [incomes, setIncomes],
         keyv: [key],
       }}
     >
