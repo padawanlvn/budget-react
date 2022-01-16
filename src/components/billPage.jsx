@@ -1,16 +1,15 @@
 //import { getByTestId } from "@testing-library/react";
 //import { getNextKeyDef } from "@testing-library/user-event/dist/keyboard/getNextKeyDef";
-import React, { useRef, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Bills from "./bills";
 import Incomes from "./income";
 import EndingAmount from "./endingAmount";
 import { Context } from "./billsContext";
 
 function BillPage() {
-  const { billsv, incomesv, keyv } = useContext(Context);
+  const { billsv, incomesv } = useContext(Context);
   const [bills, dispatchBills] = billsv;
-  const [incomes, setIncomes] = incomesv;
-  const [key] = keyv;
+  const [incomes, dispatchIncomes] = incomesv;
   const [startingAmount, setStartingAmount] = useState(0);
   const [totalDeductions, setTotalDeductions] = useState(0);
   const [totalIncomes, setTotalIncomes] = useState(0);
@@ -22,10 +21,7 @@ function BillPage() {
   };
 
   const handleClickNewIncome = () => {
-    setIncomes((oldIncomes) => [
-      ...oldIncomes,
-      { id: key.current++, label: "", amount: 0 },
-    ]);
+    dispatchIncomes({ type: "add" });
   };
 
   const handleStartingAmountChange = (amount) => {
