@@ -3,13 +3,13 @@ import "./App.css";
 import React from "react";
 import NavBar from "./components/navbar";
 import BillPage from "./components/billPage";
-import BillsData from "./components/billsData";
+import BillsContext from "./components/billsContext";
 import Footer from "./components/footer";
 import Intro from "./components/intro";
 
 function App() {
   return (
-    <BillsData>
+    <BillsContext>
       <NavBar></NavBar>
       <main className="container">
         <Intro />
@@ -20,7 +20,7 @@ function App() {
           <Footer />
         </div>
       </div>
-    </BillsData>
+    </BillsContext>
   );
 }
 

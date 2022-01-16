@@ -1,5 +1,5 @@
 import React, { Component, useState, useContext, useEffect } from "react";
-import { Context } from "./billsData";
+import { Context } from "./billsContext";
 
 const Incomes = (props) => {
   const { incomesv, keyv } = useContext(Context);

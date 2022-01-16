@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 
 export const Context = React.createContext();
 
-const BillsData = ({ children }) => {
+const BillsContext = ({ children }) => {
   const [bills, setBills] = useState([]);
   const [incomes, setIncomes] = useState([]);
   const key = useRef(0);
@@ -20,4 +20,4 @@ const BillsData = ({ children }) => {
   );
 };
 
-export default BillsData;
+export default BillsContext;

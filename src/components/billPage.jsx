@@ -4,7 +4,7 @@ import React, { useRef, useState, useContext } from "react";
 import Bills from "./bills";
 import Incomes from "./income";
 import EndingAmount from "./endingAmount";
-import { Context } from "./billsData";
+import { Context } from "./billsContext";
 
 function BillPage() {
   const { billsv, incomesv, keyv } = useContext(Context);
