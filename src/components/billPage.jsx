@@ -8,7 +8,7 @@ import { Context } from "./billsContext";
 
 function BillPage() {
   const { billsv, incomesv, keyv } = useContext(Context);
-  const [bills, setBills] = billsv;
+  const [bills, dispatchBills] = billsv;
   const [incomes, setIncomes] = incomesv;
   const [key] = keyv;
   const [startingAmount, setStartingAmount] = useState(0);
@@ -18,10 +18,7 @@ function BillPage() {
   const green = "#adff2f";
 
   const handleClickNewBill = () => {
-    setBills((oldBills) => [
-      ...oldBills,
-      { id: key.current++, label: "", amount: 0 },
-    ]);
+    dispatchBills({ type: "add" });
   };
 
   const handleClickNewIncome = () => {

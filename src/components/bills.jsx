@@ -1,10 +1,9 @@
-import React, { Component, useState, useContext, useEffect } from "react";
+import React, { Component, useContext, useEffect } from "react";
 import { Context } from "./billsContext";
 
 const Bills = (props) => {
-  const { billsv, keyv } = useContext(Context);
-  const [bills, setBills] = billsv;
-  const [key] = keyv;
+  const { billsv } = useContext(Context);
+  const [bills, dispatchBills] = billsv;
 
   const red = "#db7093";
   const green = "#adff2f";
@@ -21,38 +20,34 @@ const Bills = (props) => {
     }
   }, [bills]);
 
-  const handleNewAmount = (bill, amount) => {
-    amount = amount || 0;
-    bill.amount = parseFloat(amount);
-    setBills([...bills]);
-  };
-
-  const handleNewLabel = (bill, label) => {
-    bill.label = label;
-    setBills([...bills]);
-  };
-
   const handleRemoveBill = (bill) => {
-    const newBills = bills.filter((t) => t !== bill);
-
-    if (newBills.length == 0) {
-      setBills([]);
-    } else {
-      setBills([...newBills]); // can't just pass in, need to set to a whole new array
-    }
+    dispatchBills({
+      type: "remove",
+      payload: bill,
+    });
   };
 
   return bills?.map((bill) => (
     <div className="pb-1" key={bill.id}>
       <input
         placeholder="Whatcha payin?"
-        onChange={(e) => handleNewLabel(bill, e.target.value)}
+        onChange={(e) =>
+          dispatchBills({
+            type: "changeLabel",
+            payload: { bill: bill, label: e.target.value },
+          })
+        }
       ></input>
       :$
       <input
         type="number"
         placeholder="0.00"
-        onChange={(e) => handleNewAmount(bill, e.target.value)}
+        onChange={(e) =>
+          dispatchBills({
+            type: "changeAmount",
+            payload: { bill: bill, amount: e.target.value },
+          })
+        }
         style={{ backgroundColor: bill.amount > 0 ? green : red }}
       ></input>
       <button onClick={(e) => handleRemoveBill(bill)}>-</button>
