@@ -21,7 +21,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://padawanlvn.github.io/budget-react",
+  "homepage": "https://padawanlvn.github.io/budget-react/",
   "eslintConfig": {
     "extends": [
       "react-app",
