@@ -13,7 +13,7 @@ const Bills = (props) => {
   useEffect(() => {
     if (bills.length > 0) {
       props.onTotalDeductionsChange(
-        bills.map((i) => i.amount).reduce((prev, next) => prev + next)
+        bills.reduce((total, bill) => total + (bill.amount === "" || isNaN(bill.amount) ? 0 : bill.amount), 0)
       );
     } else {
       props.onTotalDeductionsChange(0);
@@ -31,6 +31,7 @@ const Bills = (props) => {
     <div className="pb-1" key={bill.id}>
       <input
         placeholder="Whatcha payin?"
+        defaultValue={bill.label}
         onChange={(e) =>
           dispatchBills({
             type: "changeLabel",
@@ -42,13 +43,14 @@ const Bills = (props) => {
       <input
         type="number"
         placeholder="0.00"
+        defaultValue={bill.amount}
         onChange={(e) =>
           dispatchBills({
             type: "changeAmount",
             payload: { bill: bill, amount: e.target.value },
           })
         }
-        style={{ backgroundColor: bill.amount > 0 ? green : red }}
+        style={{ backgroundColor: bill.amount !== "" && bill.amount >= 0 ? green : red }}
       ></input>
       <button onClick={(e) => handleRemoveBill(bill)}>-</button>
     </div>

@@ -13,7 +13,7 @@ const Incomes = (props) => {
   useEffect(() => {
     if (incomes.length > 0) {
       props.onTotalIncomesChange(
-        incomes.map((i) => i.amount).reduce((prev, next) => prev + next)
+        incomes.reduce((total, income) => total + (income.amount === "" || isNaN(income.amount) ? 0 : income.amount), 0)
       );
     } else {
       props.onTotalIncomesChange(0);
@@ -31,6 +31,7 @@ const Incomes = (props) => {
     <div className="pb-1" key={income.id}>
       <input
         placeholder="What's coming in?"
+        defaultValue={income.label}
         onChange={(e) =>
           dispatchIncomes({
             type: "changeLabel",
@@ -42,13 +43,14 @@ const Incomes = (props) => {
       <input
         type="number"
         placeholder="0.00"
+        defaultValue={income.amount}
         onChange={(e) =>
           dispatchIncomes({
             type: "changeAmount",
             payload: { income: income, amount: e.target.value },
           })
         }
-        style={{ backgroundColor: income.amount > 0 ? green : red }}
+        style={{ backgroundColor: income.amount !== "" && income.amount >= 0 ? green : red }}
       ></input>
       <button onClick={(e) => handleRemoveIncome(income)}>-</button>
     </div>

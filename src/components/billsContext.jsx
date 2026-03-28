@@ -7,8 +7,16 @@ let key = 0;
 const reducerBills = (state, action) => {
   switch (action.type) {
     case "add":
-      return [...state, { id: key++, label: "", amount: 0 }];
-    case "remove":
+      return [...state, { id: key++, label: "", amount: "" }];
+    case "pasteMultiple": {
+      const newBills = action.payload.map((item) => ({
+        id: key++,
+        label: item.label,
+        amount: item.amount !== undefined ? item.amount : "",
+      }));
+      return [...state, ...newBills];
+    }
+    case "remove": {
       let newBills = state.filter((t) => t !== action.payload);
 
       if (newBills.length == 0) {
@@ -18,9 +26,9 @@ const reducerBills = (state, action) => {
       }
 
       return newBills;
+    }
     case "changeAmount":
-      action.payload.amount = action.payload.amount || 0;
-      action.payload.bill.amount = parseFloat(action.payload.amount);
+      action.payload.bill.amount = action.payload.amount === "" ? "" : parseFloat(action.payload.amount);
       return [...state];
     case "changeLabel":
       action.payload.bill.label = action.payload.label;
@@ -33,7 +41,7 @@ const reducerBills = (state, action) => {
 const reducerIncomes = (state, action) => {
   switch (action.type) {
     case "add":
-      return [...state, { id: key++, label: "", amount: 0 }];
+      return [...state, { id: key++, label: "", amount: "" }];
     case "remove":
       let newIncomes = state.filter((t) => t !== action.payload);
 
@@ -45,8 +53,7 @@ const reducerIncomes = (state, action) => {
 
       return newIncomes;
     case "changeAmount":
-      action.payload.amount = action.payload.amount || 0;
-      action.payload.income.amount = parseFloat(action.payload.amount);
+      action.payload.income.amount = action.payload.amount === "" ? "" : parseFloat(action.payload.amount);
       return [...state];
     case "changeLabel":
       action.payload.income.label = action.payload.label;
