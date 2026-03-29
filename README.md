@@ -44,4 +44,4 @@ npm run deploy
 1. It triggers `predeploy` which runs `react-scripts build`.
 2. This creates an optimized, static, and minified production directory inside `build/`.
 3. It launches the `gh-pages` helper package which seamlessly commits that directory directly up to the `gh-pages` branch on GitHub.
-4. With a configured `public/CNAME` file, GitHub routes your domain (e.g. `budget.lingan.org`) flawlessly to the new branch cache.
+4. With a configured `public/CNAME` file, GitHub routes your domain flawlessly to the new branch cache.
